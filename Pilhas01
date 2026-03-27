@@ -1,0 +1,35 @@
+from stack import Stack
+
+def is_balanced(expression):
+    pilha = Stack()
+    pares = {')': '(', '}': '{', ']': '['}
+
+    for char in expression:
+        if char in "({[":
+            pilha.push(char)
+        elif char in ")}]":
+            if pilha.is_empty():
+                return False
+            topo = pilha.pop()
+            if pares[char] != topo:
+                return False
+
+    return pilha.is_empty()
+
+print(is_balanced("[{}(2+2)]{}"))
+print(is_balanced("[{}(2+2))]{}"))
+print(is_balanced("[{}])"))
+
+print(" ")
+print(is_balanced(""))
+print(is_balanced("()"))
+print(is_balanced("({[]})"))
+print(is_balanced("{[()()]()}"))
+print(is_balanced("if (a[0] > b) { return c; }"))
+
+print(" ")
+print(is_balanced("("))
+print(is_balanced("]"))
+print(is_balanced("({[)]}"))
+print(is_balanced("{[(()]}"))
+print(is_balanced("((()))]"))
