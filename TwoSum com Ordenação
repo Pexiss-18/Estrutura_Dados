@@ -1,0 +1,37 @@
+def partition(lista, inicio, fim):
+    pivo = lista[fim][0]
+    i = inicio - 1
+    for j in range(inicio, fim):
+        if lista[j][0] <= pivo:
+            i += 1
+            lista[i], lista[j] = lista[j], lista[i]
+    lista[i + 1], lista[fim] = lista[fim], lista[i + 1]
+    return i + 1
+
+def quicksort(lista, inicio, fim):
+    if inicio < fim:
+        indice_pivo = partition(lista, inicio, fim)
+        quicksort(lista, inicio, indice_pivo - 1)
+        quicksort(lista, indice_pivo + 1, fim)
+
+def twoSum(numeros, alvo):
+    lista = [(numeros[i], i) for i in range(len(numeros))]
+    quicksort(lista, 0, len(lista) - 1)
+    
+    esquerda = 0
+    direita = len(lista) - 1
+    
+    while esquerda < direita:
+        soma = lista[esquerda][0] + lista[direita][0]
+        if soma == alvo:
+            return [lista[esquerda][1], lista[direita][1]]
+        elif soma < alvo:
+            esquerda += 1
+        else:
+            direita -= 1
+    return []
+
+numeros = [2, 7, 11, 15]
+alvo = 9
+resultado = twoSum(numeros, alvo)
+print(resultado)
