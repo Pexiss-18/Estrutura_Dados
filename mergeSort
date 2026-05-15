@@ -1,0 +1,42 @@
+def mergesort(arr):
+    _mergesort(arr, 0, len(arr) - 1)
+
+def _mergesort(arr, left, right):
+    if left < right:
+        middle = (left + right) // 2
+        
+        _mergesort(arr, left, middle)
+        _mergesort(arr, middle + 1, right)
+        
+        merge(arr, left, middle, right)
+
+def merge(arr, left, middle, right):
+    left_part = arr[left:middle + 1]
+    right_part = arr[middle + 1:right + 1]
+
+    i = 0
+    j = 0
+    k = left
+
+    while i < len(left_part) and j < len(right_part):
+        if left_part[i] <= right_part[j]:
+            arr[k] = left_part[i]
+            i += 1
+        else:
+            arr[k] = right_part[j]
+            j += 1
+        k += 1
+
+    while i < len(left_part):
+        arr[k] = left_part[i]
+        i += 1
+        k += 1
+
+    while j < len(right_part):
+        arr[k] = right_part[j]
+        j += 1
+        k += 1
+
+nums = [9, 4, 3, 8, 2, 7]
+mergesort(nums)
+print(nums)
